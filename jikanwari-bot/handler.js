@@ -8,11 +8,6 @@ const AWS = require('aws-sdk');
 const axios = require('axios');
 
 module.exports.hello = async (event, context) => {
-  const messageFunc = require('./message');
-  const postbackFunc = require('./postback');
-  const joinFunc = require('./join');
-  const leaveFunc = require('./leave');
-  const followFunc = require('./follow');
 
   let checkHeader = (event.headers || {})['X-Line-Signature'];
 
@@ -21,18 +16,23 @@ module.exports.hello = async (event, context) => {
   events.forEach(async function (event) {
     switch (event.type) {
       case 'message':
+        const messageFunc = require('./message');
         message = await messageFunc.message(event);
         break;
       case 'postback':
+        const postbackFunc = require('./postback');
         message = await postbackFunc.postback(event);
         break;
       case 'join':
+        const joinFunc = require('./join');
         message = joinFunc.join(event);
         break;
       case 'leave':
+        const leaveFunc = require('./leave');
         leaveFunc.leave(event);
         break;
       case 'follow':
+        const followFunc = require('./follow');
         followFunc.follow(event, client);
         break;
     }
