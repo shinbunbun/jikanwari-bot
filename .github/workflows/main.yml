@@ -28,3 +28,11 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          ACCESSTOKEN: ${{ secrets.ACCESSTOKEN }}
+          CHANNELSECRET: ${{ secrets.CHANNELSECRET }}
+          RICHMENU1: ${{ secrets.RICHMENU1 }}
+          RICHMENU2: ${{ secrets.RICHMENU2 }}
+          AXIOS: ${{ secrets.AXIOS }}
+          NODEUUID: ${{ secrets.NODEUUID }}
+          LINEBOTSDK: ${{ secrets.LINEBOTSDK }}
+          ROLE: ${{ secrets.ROLE }}
