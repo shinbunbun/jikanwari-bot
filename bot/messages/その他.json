@@ -1,0 +1,58 @@
+{
+  "type": "flex",
+  "altText": "その他",
+  "contents": {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [{
+        "type": "text",
+        "text": "その他",
+        "weight": "bold",
+        "size": "md"
+      }]
+    },
+    "footer": {
+      "type": "box",
+      "layout": "vertical",
+      "spacing": "sm",
+      "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "uri",
+            "label": "時間割編集",
+            "uri": "https://jikanwari-bot.shinbunbun.info?path=edit"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "ユーザー情報削除",
+            "data": "ユーザー情報削除"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "message",
+            "label": "友達に勧める",
+            "text": "友達に勧める"
+          }
+        },
+        {
+          "type": "spacer",
+          "size": "sm"
+        }
+      ],
+      "flex": 0
+    }
+  }
+}

@@ -1,0 +1,39 @@
+[{
+    "type": "text",
+    "text": "時間割を送って欲しい時間を設定すると、毎日その時間に自動で時間割を送信します。\n※送信先は1対1トークかグループのどちらかを選択できます。"
+  },
+  {
+    "type": "flex",
+    "altText": "ボタンを押して下さい",
+    "contents": {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [{
+          "type": "text",
+          "text": "登録したい場合は以下のボタンを押してください",
+          "weight": "bold",
+          "wrap": true,
+          "size": "md"
+        }]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "message",
+            "label": "時間割お知らせ機能登録",
+            "text": "時間割お知らせ機能登録"
+          }
+        }],
+        "flex": 0
+      }
+    }
+  }
+]

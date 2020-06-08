@@ -1,0 +1,54 @@
+[{
+    "type": "flex",
+    "altText": "共有IDを持っていますか？",
+    "contents": {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [{
+          "type": "text",
+          "text": "共有IDを持っていますか？",
+          "weight": "bold",
+          "size": "md",
+          "wrap": true
+        }]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "horizontal",
+        "spacing": "sm",
+        "contents": [{
+            "type": "button",
+            "style": "primary",
+            "height": "md",
+            "action": {
+              "type": "postback",
+              "label": "はい",
+              "data": "時間割登録"
+            }
+          },
+          {
+            "type": "button",
+            "style": "primary",
+            "height": "md",
+            "action": {
+              "type": "uri",
+              "label": "いいえ",
+              "uri": "https://jikanwari-bot.shinbunbun.info?path=registration"
+            }
+          },
+          {
+            "type": "spacer",
+            "size": "sm"
+          }
+        ],
+        "flex": 0
+      }
+    }
+  },
+  {
+    "type": "text",
+    "text": "※共有IDがわからない方はいいえを押して下さい"
+  }
+]

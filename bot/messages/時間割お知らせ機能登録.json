@@ -1,0 +1,40 @@
+[{
+    "type": "text",
+    "text": "以下のボタンを押して配信時刻を選択して下さい。（分は切り捨てますのでご注意下さい。例えば、19:26を選択した場合19:00として登録されます。）\n午前は当日の時間割、午後は翌日の時間割が配信されます。"
+  },
+  {
+    "type": "flex",
+    "altText": "選択してください",
+    "contents": {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [{
+          "type": "text",
+          "text": "選択してください",
+          "weight": "bold",
+          "size": "md"
+        }]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "datetimepicker",
+            "label": "時刻を選択して下さい",
+            "data": "jikanwariNotifyTime",
+            "mode": "time",
+            "min": "01:00"
+          }
+        }],
+        "flex": 0
+      }
+    }
+  }
+]

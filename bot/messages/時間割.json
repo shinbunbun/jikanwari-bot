@@ -1,0 +1,68 @@
+{
+  "type": "flex",
+  "altText": "選択してください",
+  "contents": {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [{
+        "type": "text",
+        "text": "選択してください",
+        "weight": "bold",
+        "size": "md"
+      }]
+    },
+    "footer": {
+      "type": "box",
+      "layout": "vertical",
+      "spacing": "sm",
+      "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "今日の時間割",
+            "data": "今日の時間割"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "明日の時間割",
+            "data": "明日の時間割"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "曜日指定",
+            "data": "曜日指定"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "全曜日",
+            "data": "全曜日"
+          }
+        },
+        {
+          "type": "spacer",
+          "size": "sm"
+        }
+      ],
+      "flex": 0
+    }
+  }
+}

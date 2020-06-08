@@ -65,11 +65,6 @@ const sendToUser = async (e) => {
     });
     const ttdata = promise.Items[0];
 
-    let isPremium;
-    if (ttdata) {
-        isPremium = ttdata.premium;
-    }
-
     switch (userMessage) {
         case '/userid':
             message = {
@@ -78,115 +73,11 @@ const sendToUser = async (e) => {
             };
             return message;
         case 'その他の時間割':
-            message = {
-                'type': 'flex',
-                'altText': 'その他の時間割',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': 'その他の時間割',
-                            'weight': 'bold',
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '曜日指定',
-                                    'data': '曜日指定'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '全曜日',
-                                    'data': '全曜日'
-                                }
-                            },
-                            {
-                                'type': 'spacer',
-                                'size': 'sm'
-                            }
-                        ],
-                        'flex': 0
-                    }
-                }
-            };
+            message = require('./messages/その他の時間割.json');
             return message;
 
         case 'その他':
-            message = {
-                'type': 'flex',
-                'altText': 'その他',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': 'その他',
-                            'weight': 'bold',
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'uri',
-                                    'label': '時間割編集',
-                                    'uri': 'https://jikanwari-bot.shinbunbun.info?path=edit'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': 'ユーザー情報削除',
-                                    'data': 'ユーザー情報削除'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'message',
-                                    'label': '友達に勧める',
-                                    'text': '友達に勧める'
-                                }
-                            },
-                            {
-                                'type': 'spacer',
-                                'size': 'sm'
-                            }
-                        ],
-                        'flex': 0
-                    }
-                }
-            };
+            message = require('./messages/その他.json');
             return message;
 
         case '時間割共有':
@@ -198,14 +89,6 @@ const sendToUser = async (e) => {
                     };
                     return message;
                 }
-                message = [{
-                    'type': 'text',
-                    'text': '時間割が見つかりませんでした。\nまだこのグループに時間割を登録していない場合は共有IDを送信して時間割を登録して下さい。\n共有IDの発行方法は以下の通りです。'
-                }, {
-                    'type': 'text',
-                    'text': '時間割botとの個人チャットを開く→メニューの「第二メニュー」を押す→「時間割共有」ボタンを押す'
-                }];
-                return message;
             }
             message = [{
                 'type': 'text',
@@ -219,826 +102,16 @@ const sendToUser = async (e) => {
             }];
             return message;
         case '友達に勧める':
-            message = {
-                'type': 'flex',
-                'altText': '選択してください',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '選択してください',
-                            'weight': 'bold',
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'uri',
-                                    'label': 'LINEで勧める',
-                                    'uri': 'line://nv/recommendOA/@ywg0561x'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'uri',
-                                    'label': 'Twitterで勧める',
-                                    'uri': 'https://twitter.com/intent/tweet?text=LINE%E3%81%AE%E6%99%82%E9%96%93%E5%89%B2bot%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%EF%BC%81%0Ahttps%3A%2F%2Fline.me%2FR%2Fti%2Fp%2F%40ywg0561x%0A%23LINE%E6%99%82%E9%96%93%E5%89%B2bot&openexternalbrowser=1'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': 'その他(QRコード、URL)',
-                                    'data': 'その他'
-                                }
-                            },
-                            {
-                                'type': 'spacer',
-                                'size': 'sm'
-                            }
-                        ],
-                        'flex': 0
-                    }
-                }
-            };
+            message = require('./messages/友達に勧める.json');
             return message;
         case '時間割':
-            message = {
-                'type': 'flex',
-                'altText': '選択してください',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '選択してください',
-                            'weight': 'bold',
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '今日の時間割',
-                                    'data': '今日の時間割'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '明日の時間割',
-                                    'data': '明日の時間割'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '曜日指定',
-                                    'data': '曜日指定'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '全曜日',
-                                    'data': '全曜日'
-                                }
-                            },
-                            {
-                                'type': 'spacer',
-                                'size': 'sm'
-                            }
-                        ],
-                        'flex': 0
-                    }
-                }
-            };
+            message = require('./messages/時間割.json');
             return message;
         case '時間割登録':
-            message = [{
-                'type': 'flex',
-                'altText': '共有IDを持っていますか？',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '共有IDを持っていますか？',
-                            'weight': 'bold',
-                            'size': 'md',
-                            'wrap': true
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'horizontal',
-                        'spacing': 'sm',
-                        'contents': [{
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': 'はい',
-                                    'data': '時間割登録'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'uri',
-                                    'label': 'いいえ',
-                                    'uri': 'https://jikanwari-bot.shinbunbun.info?path=registration'
-                                }
-                            },
-                            {
-                                'type': 'spacer',
-                                'size': 'sm'
-                            }
-                        ],
-                        'flex': 0
-                    }
-                }
-            }, {
-                'type': 'text',
-                'text': '※共有IDがわからない方はいいえを押して下さい'
-            }];
+            message = require('./messages/時間割登録.json');
             return message;
-        case '第二メニュー':
-            message = {
-                'type': 'flex',
-                'altText': '第二メニュー',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '第二メニュー',
-                            'weight': 'bold',
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '時間割共有',
-                                    'data': '時間割共有'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'uri',
-                                    'label': '時間割編集',
-                                    'uri': 'https://jikanwari-bot.shinbunbun.info?path=edit'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'postback',
-                                    'label': '時間割削除',
-                                    'data': '時間割削除'
-                                }
-                            },
-                            {
-                                'type': 'spacer',
-                                'size': 'sm'
-                            }
-                        ],
-                        'flex': 0
-                    }
-                }
-            };
-            return message;
-
-        case 'プレミアム会員登録':
-            /*client.linkRichMenuToUser(userId, 'richmenu-56ef5fbf048920e0be09ba91888f8d3d');
-            message = {
-                "type": "flex",
-                "altText": 'プレミアム会員登録',
-                "contents": {
-                    "type": "bubble",
-                    "body": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [{
-                                "type": "text",
-                                "text": "プレミアム会員について",
-                                "weight": "bold",
-                                "size": "lg",
-                                "margin": "md"
-                            },
-                            {
-                                "type": "separator",
-                                "margin": "xxl"
-                            },
-                            {
-                                "type": "box",
-                                "layout": "vertical",
-                                "margin": "xxl",
-                                "spacing": "sm",
-                                "contents": [{
-                                        "type": "text",
-                                        "text": "使える機能",
-                                        "size": "lg"
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "時間割お知らせ機能",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "詳細はこちら",
-                                                "size": "sm",
-                                                "color": "#469fd6",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:時間割お知らせ機能"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "天気予報",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "詳細はこちら",
-                                                "size": "sm",
-                                                "color": "#469fd6",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:天気予報"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "電車運行情報",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "詳細はこちら",
-                                                "size": "sm",
-                                                "color": "#469fd6",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:電車運行情報"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "separator",
-                                        "margin": "xxl"
-                                    },
-                                    {
-                                        "type": "text",
-                                        "text": "金額",
-                                        "size": "lg"
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "1ヶ月",
-                                                "size": "sm",
-                                                "color": "#555555"
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "¥370",
-                                                "size": "sm",
-                                                "color": "#111111",
-                                                "align": "start"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "3ヶ月",
-                                                "size": "sm",
-                                                "color": "#555555"
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "¥999 （10%OFF）",
-                                                "size": "sm",
-                                                "color": "#111111",
-                                                "align": "start"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "6ヶ月",
-                                                "size": "sm",
-                                                "color": "#555555"
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "¥1843（17%OFF）",
-                                                "size": "sm",
-                                                "color": "#111111",
-                                                "align": "start"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "separator",
-                                        "margin": "xxl"
-                                    },
-                                    {
-                                        "type": "text",
-                                        "text": "主な決済方法・手数料",
-                                        "size": "lg"
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "カード決済",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "¥0",
-                                                "size": "sm",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:時間割お知らせ機能"
-                                                },
-                                                "color": "#555555"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "TwitterのDMでアマギフコード送信",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:時間割お知らせ機能"
-                                                },
-                                                "text": "¥0"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "コンビニ決済",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "¥220",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:時間割お知らせ機能"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "キャリア決済",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "¥220",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:時間割お知らせ機能"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "box",
-                                        "layout": "horizontal",
-                                        "contents": [{
-                                                "type": "text",
-                                                "text": "銀行振込",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "flex": 0
-                                            },
-                                            {
-                                                "type": "text",
-                                                "text": "振込元により変動",
-                                                "size": "sm",
-                                                "color": "#555555",
-                                                "align": "end",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "詳細はこちら",
-                                                    "text": "ヘルプ:時間割お知らせ機能"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    "footer": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [{
-                                "type": "button",
-                                "action": {
-                                    "type": "uri",
-                                    "label": "TwitterのDMから登録",
-                                    "uri": "https://twitter.com/line_jikanwari"
-                                },
-                                "style": "primary",
-                                "offsetBottom": "sm"
-                            },
-                            {
-                                "type": "button",
-                                "action": {
-                                    "type": "uri",
-                                    "label": "Twitter以外の支払い方法で登録",
-                                    "uri": "https://jikanwari-bot.stores.jp/"
-                                },
-                                "style": "primary"
-                            }
-                        ]
-                    },
-                    "styles": {
-                        "footer": {
-                            "separator": true
-                        }
-                    }
-                }
-            };*/
-            message = {
-                'type': 'text',
-                'text': '現在停止中です。'
-            };
-
-            return message;
-
         case 'ヘルプ:時間割お知らせ機能':
-            message = [{
-                'type': 'text',
-                'text': '時間割を送って欲しい時間を設定すると、毎日その時間に自動で時間割を送信します。\n※送信先は1対1トークかグループのどちらかを選択できます。'
-            }, {
-                'type': 'flex',
-                'altText': 'ボタンを押して下さい',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '登録したい場合は以下のボタンを押してください',
-                            'weight': 'bold',
-                            'wrap': true,
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                            'type': 'button',
-                            'style': 'primary',
-                            'height': 'md',
-                            'action': {
-                                'type': 'message',
-                                'label': '時間割お知らせ機能登録',
-                                'text': '時間割お知らせ機能登録',
-                            }
-                        }],
-                        'flex': 0
-                    }
-                }
-            }];
-            return message;
-        case 'ヘルプ:天気予報':
-            message = {
-                'type': 'text',
-                'text': '郵便番号を登録すると、その地域の天気予報が見れるようになります。また、時間割お知らせ機能に登録している場合は一緒にその日の天気予報を送信します。'
-            };
-            return message;
-        case 'ヘルプ:電車運行情報':
-            message = {
-                'type': 'text',
-                'text': '路線を登録すると、その路線の運行情報が見れるようになります。また、時間割お知らせ機能に登録している場合は一緒にその日の運行情報を送信します。'
-            };
-            return message;
-        case 'line-pay-test':
-            message = {
-                'type': 'flex',
-                'altText': 'line-pay-test',
-                'contents': {
-                    'type': 'carousel',
-                    'contents': [{
-                            'type': 'bubble',
-                            'size': 'micro',
-                            'hero': {
-                                'type': 'image',
-                                'size': 'full',
-                                'aspectRatio': '20:13',
-                                'aspectMode': 'fit',
-                                'url': 'https://timetablebot.s3-ap-northeast-1.amazonaws.com/image/calendar.png'
-                            },
-                            'body': {
-                                'type': 'box',
-                                'layout': 'vertical',
-                                'spacing': 'sm',
-                                'contents': [{
-                                        'type': 'text',
-                                        'text': '1ヶ月',
-                                        'wrap': true,
-                                        'weight': 'bold',
-                                        'size': 'lg'
-                                    },
-                                    {
-                                        'type': 'box',
-                                        'layout': 'baseline',
-                                        'contents': [{
-                                            'type': 'text',
-                                            'text': '¥370',
-                                            'wrap': true,
-                                            'weight': 'bold',
-                                            'size': 'md',
-                                            'flex': 0
-                                        }]
-                                    }
-                                ]
-                            },
-                            'footer': {
-                                'type': 'box',
-                                'layout': 'vertical',
-                                'spacing': 'sm',
-                                'contents': [{
-                                    'type': 'button',
-                                    'style': 'primary',
-                                    'action': {
-                                        'type': 'uri',
-                                        'label': '購入',
-                                        'uri': 'https://a0vgdimu59.execute-api.ap-northeast-1.amazonaws.com/prod/pay/reserve?id=1',
-                                        'altUri': {
-                                            'desktop': 'https://a0vgdimu59.execute-api.ap-northeast-1.amazonaws.com/prod/pay/reserve?id=1'
-                                        }
-                                    }
-                                }]
-                            }
-                        },
-                        {
-                            'type': 'bubble',
-                            'size': 'micro',
-                            'hero': {
-                                'type': 'image',
-                                'size': 'full',
-                                'aspectRatio': '20:13',
-                                'aspectMode': 'fit',
-                                'url': 'https://timetablebot.s3-ap-northeast-1.amazonaws.com/image/calendar.png'
-                            },
-                            'body': {
-                                'type': 'box',
-                                'layout': 'vertical',
-                                'spacing': 'sm',
-                                'contents': [{
-                                        'type': 'text',
-                                        'text': '3ヶ月',
-                                        'wrap': true,
-                                        'weight': 'bold',
-                                        'size': 'lg'
-                                    },
-                                    {
-                                        'type': 'box',
-                                        'layout': 'baseline',
-                                        'contents': [{
-                                                'type': 'text',
-                                                'text': '¥999',
-                                                'wrap': true,
-                                                'weight': 'bold',
-                                                'size': 'md',
-                                                'flex': 0,
-                                                'color': '#ff0000'
-                                            },
-                                            {
-                                                'type': 'text',
-                                                'text': '10%OFF',
-                                                'align': 'center',
-                                                'color': '#ff0000',
-                                                'style': 'italic',
-                                                'decoration': 'underline'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            'footer': {
-                                'type': 'box',
-                                'layout': 'vertical',
-                                'spacing': 'sm',
-                                'contents': [{
-                                    'type': 'button',
-                                    'style': 'primary',
-                                    'action': {
-                                        'type': 'uri',
-                                        'label': '購入',
-                                        'uri': 'https://a0vgdimu59.execute-api.ap-northeast-1.amazonaws.com/prod/pay/reserve?id=2',
-                                        'altUri': {
-                                            'desktop': 'https://a0vgdimu59.execute-api.ap-northeast-1.amazonaws.com/prod/pay/reserve?id=2'
-                                        }
-                                    }
-                                }]
-                            }
-                        },
-                        {
-                            'type': 'bubble',
-                            'size': 'micro',
-                            'hero': {
-                                'type': 'image',
-                                'size': 'full',
-                                'aspectRatio': '20:13',
-                                'aspectMode': 'fit',
-                                'url': 'https://timetablebot.s3-ap-northeast-1.amazonaws.com/image/calendar.png'
-                            },
-                            'body': {
-                                'type': 'box',
-                                'layout': 'vertical',
-                                'spacing': 'sm',
-                                'contents': [{
-                                        'type': 'text',
-                                        'text': '6ヶ月',
-                                        'wrap': true,
-                                        'weight': 'bold',
-                                        'size': 'lg'
-                                    },
-                                    {
-                                        'type': 'box',
-                                        'layout': 'baseline',
-                                        'contents': [{
-                                                'type': 'text',
-                                                'text': '¥1843',
-                                                'wrap': true,
-                                                'weight': 'bold',
-                                                'size': 'md',
-                                                'flex': 0,
-                                                'color': '#ff0000'
-                                            },
-                                            {
-                                                'type': 'text',
-                                                'text': '17%OFF',
-                                                'align': 'center',
-                                                'color': '#ff0000',
-                                                'style': 'italic',
-                                                'decoration': 'underline'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            'footer': {
-                                'type': 'box',
-                                'layout': 'vertical',
-                                'spacing': 'sm',
-                                'contents': [{
-                                    'type': 'button',
-                                    'style': 'primary',
-                                    'action': {
-                                        'type': 'uri',
-                                        'label': '購入',
-                                        'uri': 'https://a0vgdimu59.execute-api.ap-northeast-1.amazonaws.com/prod/pay/reserve?id=3',
-                                        'altUri': {
-                                            'desktop': 'https://a0vgdimu59.execute-api.ap-northeast-1.amazonaws.com/prod/pay/reserve?id=3'
-                                        }
-                                    }
-                                }]
-                            }
-                        }
-                    ]
-                }
-            };
+            message = require('./messages/ヘルプ:時間割お知らせ機能.json');
             return message;
         case '時間割お知らせ機能登録':
             if (ttdata == undefined) {
@@ -1048,44 +121,7 @@ const sendToUser = async (e) => {
                 };
                 return message;
             }
-            message = [{
-                'type': 'text',
-                'text': '以下のボタンを押して配信時刻を選択して下さい。（分は切り捨てますのでご注意下さい。例えば、19:26を選択した場合19:00として登録されます。）\n午前は当日の時間割、午後は翌日の時間割が配信されます。'
-            }, {
-                'type': 'flex',
-                'altText': '選択してください',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '選択してください',
-                            'weight': 'bold',
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                            'type': 'button',
-                            'style': 'primary',
-                            'height': 'md',
-                            'action': {
-                                'type': 'datetimepicker',
-                                'label': '時刻を選択して下さい',
-                                'data': 'jikanwariNotifyTime',
-                                'mode': 'time',
-                                'min': '01:00'
-                            }
-                        }],
-                        'flex': 0
-                    }
-                }
-            }];
+            message = require('./messages/時間割お知らせ機能登録.json');
             return message;
         case '時間割お知らせ機能解除':
             if (ttdata == undefined) {
@@ -1124,103 +160,16 @@ const sendToUser = async (e) => {
             return message;
 
         case 'お知らせ':
-            message = [{
-                'type': 'text',
-                'text': '【お知らせ】\nV2.0.0\n\n時間割お知らせ機能が復活しました！\n詳しくは以下のボタンを押してご確認ください。\n\nその他のアップデート内容は以下のページから確認できます。\nhttps://jikanwari-bot.shinbunbun.info/update'
-            }, {
-                'type': 'flex',
-                'altText': '時間割お知らせ機能の詳細を確認する',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '時間割お知らせ機能の詳細',
-                            'weight': 'bold',
-                            'wrap': true,
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                            'type': 'button',
-                            'style': 'primary',
-                            'height': 'md',
-                            'action': {
-                                'type': 'message',
-                                'label': '確認する',
-                                'text': 'ヘルプ:時間割お知らせ機能',
-                            }
-                        }],
-                        'flex': 0
-                    }
-                }
-            }];
+            message = require('./messages/お知らせ.json');
             client.linkRichMenuToUser(userId, process.env.richmenu1);
             return message;
         case '時間割お知らせ機能':
-            message = {
-                'type': 'flex',
-                'altText': '時間割お知らせ機能',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': '時間割お知らせ機能',
-                            'weight': 'bold',
-                            'size': 'md'
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'message',
-                                    'label': '登録',
-                                    'text': '時間割お知らせ機能登録'
-                                }
-                            },
-                            {
-                                'type': 'button',
-                                'style': 'primary',
-                                'height': 'md',
-                                'action': {
-                                    'type': 'message',
-                                    'label': '解除',
-                                    'text': '時間割お知らせ機能解除'
-                                }
-                            },
-                            {
-                                'type': 'spacer',
-                                'size': 'sm'
-                            }
-                        ],
-                        'flex': 0
-                    }
-                }
-            };
+            message = require('./messages/時間割お知らせ機能.json');
             return message;
 
         default:
             message = undefined;
             message = await common(e, ttdata);
-
-            if (isPremium && message === undefined) {
-                message = await premium(e, ttdata);
-            }
             return message;
     }
     //console.log(`SendMessage:user,${userMessage},${JSON.stringify(message)}`);
@@ -1321,109 +270,17 @@ const sendToGroup = async (e) => {
         case 'ヘルプ':
             message = [{
                 'type': 'text',
-                //"text": "現在グループで使える機能は「時間割削除」「今日の時間割」「明日の時間割」「全曜日」「天気予報地域登録」「天気予報地域削除」「天気予報」「路線登録」「路線削除」「運行状況」「時間割お知らせ機能登録」「時間割お知らせ機能解除」です。\n（共有IDを送信することで時間割の登録をすることが出来ます）"
                 'text': '現在グループで使える機能は「時間割削除」「今日の時間割」「明日の時間割」「全曜日」です。\n（共有IDを送信することで時間割の登録をすることが出来ます）'
             }, {
                 'type': 'text',
                 'text': '詳しくは以下のヘルプページをご参照下さい。\nline://app/1598720034-WBk6v0rZ'
             }];
             break;
-            /*
-        case "時間割お知らせ機能登録":
-            if (ttdata == undefined) {
-                message = {
-                    "type": "text",
-                    "text": "時間割を登録してください\n（共有IDを送信することで時間割の登録をすることが出来ます）"
-                };
-                return message;
-            }
-            message = [{
-                "type": "text",
-                "text": "以下のボタンを押して配信時刻を選択して下さい。（分は切り捨てますのでご注意下さい。例えば、19:26を選択した場合19:00として登録されます。）\n午前は当日の時間割、午後は翌日の時間割が配信されます。"
-            }, {
-                "type": "flex",
-                "altText": '選択してください',
-                "contents": {
-                    "type": "bubble",
-                    "body": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [{
-                            "type": "text",
-                            "text": "選択してください",
-                            "weight": "bold",
-                            "size": "md"
-                        }]
-                    },
-                    "footer": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "spacing": "sm",
-                        "contents": [{
-                            "type": "button",
-                            "style": "primary",
-                            "height": "md",
-                            "action": {
-                                "type": "datetimepicker",
-                                "label": "時刻を選択して下さい",
-                                "data": "jikanwariNotifyTime",
-                                "mode": "time",
-                                "min": "01:00"
-                            }
-                        }],
-                        "flex": 0
-                    }
-                }
-            }];
-            break;
-        case "時間割お知らせ機能解除":
-            if (ttdata == undefined) {
-                message = {
-                    "type": "text",
-                    "text": "時間割を登録してください\n（共有IDを送信することで時間割の登録をすることが出来ます）"
-                };
-                return message;
-            }
-            param = {
-                TableName: tableName,
-                Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-                    ID: groupId
-                },
-                ExpressionAttributeNames: {
-                    '#f': 'notifyToken'
-                },
-                ExpressionAttributeValues: {
-                    ':notifyToken': '0', //name属性を更新する
-                },
-                UpdateExpression: 'SET #f = :notifyToken'
-            };
-            await new Promise((resolve, reject) => {
-                dynamoDocument.update(param, (err, data) => {
-                    if (err) {
-                        reject(err);
-                    }
-                    else {
-                        resolve(data);
-                    }
-                });
-            });
-            message = {
-                "type": "text",
-                "text": "解除しました"
-            };
-            break;
-*/
         default:
             message = undefined;
             message = await common(e, ttdata);
-            /*console.log(1410);
-            console.log(isPremium);
-            if (isPremium && message === undefined) {
-                message = await premium(e, ttdata);
-            }*/
             break;
     }
-    //console.log(`1207${message}`);
     return message;
 };
 
@@ -1438,8 +295,6 @@ const common = async (e, ttdata) => {
         dayOfWeekStr = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeek];
 
     let send_tt;
-
-    //othersFunc.outputUserProfile(e, e.source.type);
     let id;
     if (e.source.type == 'user') {
         id = userId;
@@ -1457,7 +312,6 @@ const common = async (e, ttdata) => {
                     };
                     return message;
                 }
-
                 message = [{
                     'type': 'text',
                     'text': '時間割が見つかりませんでした。\nまだこのグループに時間割を登録していない場合は共有IDを送信して時間割を登録して下さい。\n共有IDの発行方法は以下の通りです。'
@@ -1541,7 +395,6 @@ const common = async (e, ttdata) => {
                 'type': 'text',
                 'text': send_tt
             };
-            //console.log(message);
             return message;
         case '明日の時間割':
             if (ttdata == undefined) {
@@ -1663,207 +516,97 @@ const common = async (e, ttdata) => {
                         'type': 'text',
                         'text': 'そのIDは存在しません'
                     };
-                } else {
-                    const uuid = othersFunc.getUniqueStr(5000) + 'hftd52';
-                    const mon = ttdata.mon,
-                        tue = ttdata.tue,
-                        wed = ttdata.wed,
-                        thu = ttdata.thu,
-                        fri = ttdata.fri,
-                        sat = ttdata.sat,
-                        property = ttdata.property;
-                    if (property) {
-                        param = {
-                            TableName: 'TimeTable',
-                            Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-                                ID: userId
-                            },
-                            ExpressionAttributeNames: {
-                                '#mon': 'mon',
-                                '#tue': 'tue',
-                                '#wed': 'wed',
-                                '#thu': 'thu',
-                                '#fri': 'fri',
-                                '#sat': 'sat',
-                                '#uuid': 'uuid',
-                                '#date': 'date',
-                                '#property': 'property'
-                            },
-                            ExpressionAttributeValues: {
-                                ':mon': mon,
-                                ':tue': tue,
-                                ':wed': wed,
-                                ':thu': thu,
-                                ':fri': fri,
-                                ':sat': sat,
-                                ':uuid': uuid,
-                                ':date': othersFunc.getDate(),
-                                ':property': property,
-                                //name属性を更新する
-                            },
-                            UpdateExpression: 'SET #mon = :mon, #tue = :tue, #wed = :wed, #thu = :thu, #fri = :fri, #sat = :sat, #uuid = :uuid, #date = :date, #property = :property'
-                        };
-                    } else {
-                        param = {
-                            TableName: 'TimeTable',
-                            Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-                                ID: userId
-                            },
-                            ExpressionAttributeNames: {
-                                '#mon': 'mon',
-                                '#tue': 'tue',
-                                '#wed': 'wed',
-                                '#thu': 'thu',
-                                '#fri': 'fri',
-                                '#sat': 'sat',
-                                '#uuid': 'uuid',
-                                '#date': 'date'
-                            },
-                            ExpressionAttributeValues: {
-                                ':mon': mon,
-                                ':tue': tue,
-                                ':wed': wed,
-                                ':thu': thu,
-                                ':fri': fri,
-                                ':sat': sat,
-                                ':uuid': uuid,
-                                ':date': othersFunc.getDate()
-                                //name属性を更新する
-                            },
-                            UpdateExpression: 'SET #mon = :mon, #tue = :tue, #wed = :wed, #thu = :thu, #fri = :fri, #sat = :sat, #uuid = :uuid, #date = :date'
-                        };
-                    }
-                    await new Promise((resolve, reject) => {
-                        dynamoDocument.update(param, (err, data) => {
-                            if (err) {
-                                console.log(err);
-                                throw new Error(err);
-                            } else {
-                                resolve(data);
-                            }
-                        });
-                    });
-                    if (e.source.type == 'user') {
-                        message = [{
-                            'type': 'text',
-                            'text': '登録が完了しました！\nメニューの「時間割」ボタンから登録した時間割を確認できます！'
-                        }];
-                        //client.unlinkRichMenuFromUser(userId, 'richmenu-138eedbbf1e26aa4042c21f0c72d1bdf');
-                        client.linkRichMenuToUser(userId, process.env.richmenu1);
-                    } else if (e.source.type == 'group') {
-                        message = [{
-                                'type': 'text',
-                                'text': '登録が完了しました！\n以下の文字列がこのグループに登録されている時間割の共有IDです。時間割botを友達追加して個チャに以下の文字列を送信すると、個チャでもこのグループと同じ時間割を使用することができます。'
-                            }, {
-                                'type': 'text',
-                                'text': uuid
-                            }, {
-                                'type': 'text',
-                                'text': 'また、グループで使用出来る機能を以下のボタンにまとめたので、ぜひご利用ください。'
-                            }, {
-                                'type': 'flex',
-                                'altText': '選択してください',
-                                'contents': {
-                                    'type': 'bubble',
-                                    'body': {
-                                        'type': 'box',
-                                        'layout': 'vertical',
-                                        'contents': [{
-                                            'type': 'text',
-                                            'text': '選択してください',
-                                            'weight': 'bold',
-                                            'size': 'md'
-                                        }]
-                                    },
-                                    'footer': {
-                                        'type': 'box',
-                                        'layout': 'vertical',
-                                        'spacing': 'sm',
-                                        'contents': [{
-                                                'type': 'button',
-                                                'style': 'primary',
-                                                'height': 'md',
-                                                'action': {
-                                                    'type': 'message',
-                                                    'label': '今日の時間割',
-                                                    'text': '今日の時間割'
-                                                }
-                                            },
-                                            {
-                                                'type': 'button',
-                                                'style': 'primary',
-                                                'height': 'md',
-                                                'action': {
-                                                    'type': 'message',
-                                                    'label': '明日の時間割',
-                                                    'text': '明日の時間割'
-                                                }
-                                            },
-                                            {
-                                                'type': 'button',
-                                                'style': 'primary',
-                                                'height': 'md',
-                                                'action': {
-                                                    'type': 'message',
-                                                    'label': '全曜日',
-                                                    'text': '全曜日'
-                                                }
-                                            },
-                                            /*{
-                                                "type": "button",
-                                                "style": "primary",
-                                                "height": "md",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "時間割お知らせ機能登録",
-                                                    "text": "時間割お知らせ機能登録"
-                                                }
-                                            },*/
-                                            /*{
-                                                "type": "button",
-                                                "style": "primary",
-                                                "height": "md",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "天気予報地域登録",
-                                                    "text": "天気予報地域登録"
-                                                }
-                                            },*/
-                                            /*{
-                                                "type": "button",
-                                                "style": "primary",
-                                                "height": "md",
-                                                "action": {
-                                                    "type": "message",
-                                                    "label": "路線登録",
-                                                    "text": "路線登録"
-                                                }
-                                            },*/
-                                            {
-                                                'type': 'spacer',
-                                                'size': 'sm'
-                                            }
-                                        ],
-                                        'flex': 0
-                                    }
-                                }
-                            },
-                            /*{
-                                                       "type": "text",
-                                                       //"text": "・全曜日\n全曜日の時間割を確認出来ます\n・時間割お知らせ機能登録\n毎日設定した時間に翌日の時間割を配信する、時間割お知らせ機能の登録ができます。\n・天気予報地域登録\n郵便番号を登録すると、毎朝6:00にその地域の天気予報が送られてきます。\n・路線登録\n路線を登録すると、毎朝6:10にその路線の運行情報が送られてきます。"
-                                                       "text": "・全曜日\n全曜日の時間割を確認出来ます"
-                                                   }*/
-                        ];
-                    }
+                    return message;
                 }
-            } else if (userMessage.match(/路線登録:/)) {
-                /*
-                othersFunc.trainRegister(userMessage, id);
-                message = {
-                    "type": "text",
-                    "text": "登録完了しました．毎朝6:10に運行情報を配信します．"
-                };
-                */
+                const uuid = othersFunc.getUniqueStr(5000) + 'hftd52';
+                const mon = ttdata.mon,
+                    tue = ttdata.tue,
+                    wed = ttdata.wed,
+                    thu = ttdata.thu,
+                    fri = ttdata.fri,
+                    sat = ttdata.sat,
+                    property = ttdata.property;
+                if (property) {
+                    param = {
+                        TableName: 'TimeTable',
+                        Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
+                            ID: userId
+                        },
+                        ExpressionAttributeNames: {
+                            '#mon': 'mon',
+                            '#tue': 'tue',
+                            '#wed': 'wed',
+                            '#thu': 'thu',
+                            '#fri': 'fri',
+                            '#sat': 'sat',
+                            '#uuid': 'uuid',
+                            '#date': 'date',
+                            '#property': 'property'
+                        },
+                        ExpressionAttributeValues: {
+                            ':mon': mon,
+                            ':tue': tue,
+                            ':wed': wed,
+                            ':thu': thu,
+                            ':fri': fri,
+                            ':sat': sat,
+                            ':uuid': uuid,
+                            ':date': othersFunc.getDate(),
+                            ':property': property,
+                            //name属性を更新する
+                        },
+                        UpdateExpression: 'SET #mon = :mon, #tue = :tue, #wed = :wed, #thu = :thu, #fri = :fri, #sat = :sat, #uuid = :uuid, #date = :date, #property = :property'
+                    };
+                } else {
+                    param = {
+                        TableName: 'TimeTable',
+                        Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
+                            ID: userId
+                        },
+                        ExpressionAttributeNames: {
+                            '#mon': 'mon',
+                            '#tue': 'tue',
+                            '#wed': 'wed',
+                            '#thu': 'thu',
+                            '#fri': 'fri',
+                            '#sat': 'sat',
+                            '#uuid': 'uuid',
+                            '#date': 'date'
+                        },
+                        ExpressionAttributeValues: {
+                            ':mon': mon,
+                            ':tue': tue,
+                            ':wed': wed,
+                            ':thu': thu,
+                            ':fri': fri,
+                            ':sat': sat,
+                            ':uuid': uuid,
+                            ':date': othersFunc.getDate()
+                            //name属性を更新する
+                        },
+                        UpdateExpression: 'SET #mon = :mon, #tue = :tue, #wed = :wed, #thu = :thu, #fri = :fri, #sat = :sat, #uuid = :uuid, #date = :date'
+                    };
+                }
+                await new Promise((resolve, reject) => {
+                    dynamoDocument.update(param, (err, data) => {
+                        if (err) {
+                            console.log(err);
+                            throw new Error(err);
+                        } else {
+                            resolve(data);
+                        }
+                    });
+                });
+                if (e.source.type == 'user') {
+                    message = [{
+                        'type': 'text',
+                        'text': '登録が完了しました！\nメニューの「時間割」ボタンから登録した時間割を確認できます！'
+                    }];
+                    client.linkRichMenuToUser(userId, process.env.richmenu1);
+                } else if (e.source.type == 'group') {
+                    message = require('./messages/グループ時間割登録完了.json');
+                    message[1].text = uuid;
+                }
             }
             return message;
     }

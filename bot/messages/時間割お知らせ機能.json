@@ -1,0 +1,48 @@
+{
+  "type": "flex",
+  "altText": "時間割お知らせ機能",
+  "contents": {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [{
+        "type": "text",
+        "text": "時間割お知らせ機能",
+        "weight": "bold",
+        "size": "md"
+      }]
+    },
+    "footer": {
+      "type": "box",
+      "layout": "vertical",
+      "spacing": "sm",
+      "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "message",
+            "label": "登録",
+            "text": "時間割お知らせ機能登録"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "message",
+            "label": "解除",
+            "text": "時間割お知らせ機能解除"
+          }
+        },
+        {
+          "type": "spacer",
+          "size": "sm"
+        }
+      ],
+      "flex": 0
+    }
+  }
+}

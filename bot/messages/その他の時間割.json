@@ -1,0 +1,48 @@
+{
+  "type": "flex",
+  "altText": "その他の時間割",
+  "contents": {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [{
+        "type": "text",
+        "text": "その他の時間割",
+        "weight": "bold",
+        "size": "md"
+      }]
+    },
+    "footer": {
+      "type": "box",
+      "layout": "vertical",
+      "spacing": "sm",
+      "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "曜日指定",
+            "data": "曜日指定"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "全曜日",
+            "data": "全曜日"
+          }
+        },
+        {
+          "type": "spacer",
+          "size": "sm"
+        }
+      ],
+      "flex": 0
+    }
+  }
+}

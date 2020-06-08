@@ -1,0 +1,58 @@
+{
+  "type": "flex",
+  "altText": "選択してください",
+  "contents": {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [{
+        "type": "text",
+        "text": "選択してください",
+        "weight": "bold",
+        "size": "md"
+      }]
+    },
+    "footer": {
+      "type": "box",
+      "layout": "vertical",
+      "spacing": "sm",
+      "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "uri",
+            "label": "LINEで勧める",
+            "uri": "line://nv/recommendOA/@ywg0561x"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "uri",
+            "label": "Twitterで勧める",
+            "uri": "https://twitter.com/intent/tweet?text=LINE%E3%81%AE%E6%99%82%E9%96%93%E5%89%B2bot%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%EF%BC%81%0Ahttps%3A%2F%2Fline.me%2FR%2Fti%2Fp%2F%40ywg0561x%0A%23LINE%E6%99%82%E9%96%93%E5%89%B2bot&openexternalbrowser=1"
+          }
+        },
+        {
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "postback",
+            "label": "その他(QRコード、URL)",
+            "data": "その他"
+          }
+        },
+        {
+          "type": "spacer",
+          "size": "sm"
+        }
+      ],
+      "flex": 0
+    }
+  }
+}

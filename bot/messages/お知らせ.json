@@ -1,0 +1,39 @@
+[{
+    "type": "text",
+    "text": "【お知らせ】\nV2.0.0\n\n時間割お知らせ機能が復活しました！\n詳しくは以下のボタンを押してご確認ください。\n\nその他のアップデート内容は以下のページから確認できます。\nhttps://jikanwari-bot.shinbunbun.info/update"
+  },
+  {
+    "type": "flex",
+    "altText": "時間割お知らせ機能の詳細を確認する",
+    "contents": {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [{
+          "type": "text",
+          "text": "時間割お知らせ機能の詳細",
+          "weight": "bold",
+          "wrap": true,
+          "size": "md"
+        }]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [{
+          "type": "button",
+          "style": "primary",
+          "height": "md",
+          "action": {
+            "type": "message",
+            "label": "確認する",
+            "text": "ヘルプ:時間割お知らせ機能"
+          }
+        }],
+        "flex": 0
+      }
+    }
+  }
+]

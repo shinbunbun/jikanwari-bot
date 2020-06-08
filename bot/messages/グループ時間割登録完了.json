@@ -1,0 +1,71 @@
+[{
+    "type": "text",
+    "text": "登録が完了しました！\n以下の文字列がこのグループに登録されている時間割の共有IDです。時間割botを友達追加して個チャに以下の文字列を送信すると、個チャでもこのグループと同じ時間割を使用することができます。"
+  },
+  {
+    "type": "text",
+    "text": "uuid"
+  },
+  {
+    "type": "text",
+    "text": "また、グループで使用出来る機能を以下のボタンにまとめたので、ぜひご利用ください。"
+  },
+  {
+    "type": "flex",
+    "altText": "選択してください",
+    "contents": {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [{
+          "type": "text",
+          "text": "選択してください",
+          "weight": "bold",
+          "size": "md"
+        }]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [{
+            "type": "button",
+            "style": "primary",
+            "height": "md",
+            "action": {
+              "type": "message",
+              "label": "今日の時間割",
+              "text": "今日の時間割"
+            }
+          },
+          {
+            "type": "button",
+            "style": "primary",
+            "height": "md",
+            "action": {
+              "type": "message",
+              "label": "明日の時間割",
+              "text": "明日の時間割"
+            }
+          },
+          {
+            "type": "button",
+            "style": "primary",
+            "height": "md",
+            "action": {
+              "type": "message",
+              "label": "全曜日",
+              "text": "全曜日"
+            }
+          },
+          {
+            "type": "spacer",
+            "size": "sm"
+          }
+        ],
+        "flex": 0
+      }
+    }
+  }
+]
