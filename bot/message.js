@@ -530,7 +530,7 @@ const common = async (e, ttdata) => {
                     param = {
                         TableName: 'TimeTable',
                         Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-                            ID: userId
+                            ID: id
                         },
                         ExpressionAttributeNames: {
                             '#mon': 'mon',
@@ -561,7 +561,7 @@ const common = async (e, ttdata) => {
                     param = {
                         TableName: 'TimeTable',
                         Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-                            ID: userId
+                            ID: id
                         },
                         ExpressionAttributeNames: {
                             '#mon': 'mon',
