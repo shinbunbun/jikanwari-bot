@@ -7,7 +7,7 @@ const client = new line.Client({
 const AWS = require('aws-sdk');
 const axios = require('axios');
 
-module.exports.hello = (event, context) => {
+module.exports.bot = (event, context) => {
 
   let checkHeader = (event.headers || {})['X-Line-Signature'];
 

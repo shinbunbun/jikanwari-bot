@@ -4,3 +4,6 @@ jspm_packages
 
 # Serverless directories
 .serverless
+jikanwari-bot/env/dev.yml
+jikanwari-bot/env/prd.yml
+jikanwari-bot/env/common.yml
