@@ -22,6 +22,7 @@ exports.message = async (e) => {
 };
 
 const sendToUser = async (e) => {
+    console.log(othersFunc.getDate());
     let message;
     const userMessage = e.message.text;
     const userId = e.source.userId;
@@ -1673,42 +1674,70 @@ const common = async (e, ttdata) => {
                         property = ttdata.property;
                     if (property) {
                         param = {
-                            TableName: tableName,
-                            Item: { //プライマリキーを必ず含める（ソートキーがある場合はソートキーも）
-                                ID: id,
-                                mon: mon,
-                                tue: tue,
-                                wed: wed,
-                                thu: thu,
-                                fri: fri,
-                                sat: sat,
-                                flag: '25',
-                                date: othersFunc.getDate(),
-                                uuid: uuid,
-                                property: property
-                            }
+                            TableName: 'TimeTable',
+                            Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
+                                ID: userId
+                            },
+                            ExpressionAttributeNames: {
+                                '#mon': 'mon',
+                                '#tue': 'tue',
+                                '#wed': 'wed',
+                                '#thu': 'thu',
+                                '#fri': 'fri',
+                                '#sat': 'sat',
+                                '#uuid': 'uuid',
+                                '#date': 'date',
+                                '#property': 'property'
+                            },
+                            ExpressionAttributeValues: {
+                                ':mon': mon,
+                                ':tue': tue,
+                                ':wed': wed,
+                                ':thu': thu,
+                                ':fri': fri,
+                                ':sat': sat,
+                                ':uuid': uuid,
+                                ':date': othersFunc.getDate(),
+                                ':property': property,
+                                //name属性を更新する
+                            },
+                            UpdateExpression: 'SET #mon = :mon, #tue = :tue, #wed = :wed, #thu = :thu, #fri = :fri, #sat = :sat, #uuid = :uuid, #date = :date, #property = :property'
                         };
                     } else {
                         param = {
-                            TableName: tableName,
-                            Item: { //プライマリキーを必ず含める（ソートキーがある場合はソートキーも）
-                                ID: id,
-                                mon: mon,
-                                tue: tue,
-                                wed: wed,
-                                thu: thu,
-                                fri: fri,
-                                sat: sat,
-                                flag: '25',
-                                date: othersFunc.getDate(),
-                                uuid: uuid
-                            }
+                            TableName: 'TimeTable',
+                            Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
+                                ID: userId
+                            },
+                            ExpressionAttributeNames: {
+                                '#mon': 'mon',
+                                '#tue': 'tue',
+                                '#wed': 'wed',
+                                '#thu': 'thu',
+                                '#fri': 'fri',
+                                '#sat': 'sat',
+                                '#uuid': 'uuid',
+                                '#date': 'date'
+                            },
+                            ExpressionAttributeValues: {
+                                ':mon': mon,
+                                ':tue': tue,
+                                ':wed': wed,
+                                ':thu': thu,
+                                ':fri': fri,
+                                ':sat': sat,
+                                ':uuid': uuid,
+                                ':date': othersFunc.getDate()
+                                //name属性を更新する
+                            },
+                            UpdateExpression: 'SET #mon = :mon, #tue = :tue, #wed = :wed, #thu = :thu, #fri = :fri, #sat = :sat, #uuid = :uuid, #date = :date'
                         };
                     }
                     await new Promise((resolve, reject) => {
-                        dynamoDocument.put(param, (err, data) => {
+                        dynamoDocument.update(param, (err, data) => {
                             if (err) {
-                                reject(err);
+                                console.log(err);
+                                throw new Error(err);
                             } else {
                                 resolve(data);
                             }
