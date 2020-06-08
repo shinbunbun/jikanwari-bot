@@ -1,0 +1,28 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Auto Deploy to AWS Lambda
+
+jobs:
+  deploy:
+    name: Auto Deploy
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: Install Dependencies
+        run: |
+          npm install serverless -g
+          npm install
+      - name: Deploy to Lambda
+        run: sls deploy --stage prd
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
