@@ -5,7 +5,6 @@ jspm_packages
 # Serverless directories
 .serverless
 bot/env/dev.yml
-bot/env/prd.yml
 bot/env/common.yml
 bot/.env
 bot/.envrc

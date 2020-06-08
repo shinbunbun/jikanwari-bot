@@ -1,0 +1,10 @@
+provisionedConcurrency: 2
+ACCESSTOKEN: ${env:ACCESSTOKEN}
+CHANNELSECRET: ${env:CHANNELSECRET}
+TZ: Asia/Tokyo
+richmenu1: ${env:RICHMENU1}
+richmenu2: ${env:RICHMENU2}
+axios: ${env:AXIOS}
+nodeUuid: ${env:NODEUUID}
+lineBotSdk: ${env:LINEBOTSDK}
+role: ${env:ROLE}
