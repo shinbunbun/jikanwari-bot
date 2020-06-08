@@ -32,9 +32,9 @@
           "style": "primary",
           "height": "md",
           "action": {
-            "type": "postback",
+            "type": "message",
             "label": "全曜日",
-            "data": "全曜日"
+            "text": "全曜日"
           }
         },
         {
