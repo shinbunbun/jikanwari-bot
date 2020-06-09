@@ -6,8 +6,8 @@ on:
 name: Auto Deploy to AWS Lambda
 
 jobs:
-  deploy:
-    name: Auto Deploy
+  deploy-bot:
+    name: deploy-bot
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@master
@@ -36,3 +36,23 @@ jobs:
           NODEUUID: ${{ secrets.NODEUUID }}
           LINEBOTSDK: ${{ secrets.LINEBOTSDK }}
           ROLE: ${{ secrets.ROLE }}
+          
+  deploy-notify:
+    name: deploy-notify
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: Install Dependencies
+        run: |
+          npm install serverless -g
+          npm install
+      - name: Deploy to Lambda
+        run: |
+          cd notify
+          sls deploy --stage prd
