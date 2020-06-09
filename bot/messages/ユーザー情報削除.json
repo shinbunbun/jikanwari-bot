@@ -1,0 +1,23 @@
+{
+  "type": "text",
+  "text": "時間割やプレミアム会員情報を含め、登録済みの全情報が削除されます。\n本当によろしいですか？",
+  "quickReply": {
+    "items": [{
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "削除する",
+          "data": "tt_delete"
+        }
+      },
+      {
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "キャンセル",
+          "data": "cancel"
+        }
+      }
+    ]
+  }
+}

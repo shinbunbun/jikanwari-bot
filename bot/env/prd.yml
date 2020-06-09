@@ -8,3 +8,5 @@ axios: ${env:AXIOS}
 nodeUuid: ${env:NODEUUID}
 lineBotSdk: ${env:LINEBOTSDK}
 role: ${env:ROLE}
+notifyUri: ${env:NOTIFYURI}
+qrUri: ${env:QRURI}

@@ -8,15 +8,10 @@ const client = new line.Client({
 const tableName = 'TimeTable';
 
 exports.postback = async (e) => {
-    let param;
     let message;
     othersFunc.outputUserProfile(e, e.source.type);
     const data = e.postback.data;
-    const date = new Date(),
-        dayOfWeek = date.getDay(),
-        dayOfWeekStr = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeek];
     const userId = e.source.userId;
-    //console.log('userId: ' + userId + ' , data: ' + data);
 
     const timetableLogsParam = {
         TableName: 'timetable-logs',
@@ -36,7 +31,7 @@ exports.postback = async (e) => {
 
     let ttdata;
     let send_tt;
-    param = {
+    const queryParam = {
         TableName: tableName,
         KeyConditionExpression: '#k = :val',
         ExpressionAttributeValues: {
@@ -47,7 +42,7 @@ exports.postback = async (e) => {
         }
     };
     let promise = await new Promise((resolve, reject) => {
-        dynamoDocument.query(param, (err, data) => {
+        dynamoDocument.query(queryParam, (err, data) => {
             if (err) {
                 reject(err);
             } else {
@@ -154,16 +149,16 @@ exports.postback = async (e) => {
                 'type': 'text',
                 'text': '共有IDを送信してください'
             };
-            break;
+            return message;
         case 'tt_delete':
-            param = {
+            const deleteParam = {
                 TableName: tableName,
                 Key: { //削除したい項目をプライマリキー(及びソートキー)によって１つ指定
                     ID: userId
                 }
             };
             await new Promise((resolve, reject) => {
-                dynamoDocument.delete(param, (err, data) => {
+                dynamoDocument.delete(deleteParam, (err, data) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -176,65 +171,31 @@ exports.postback = async (e) => {
                 'text': '時間割を削除しました'
             };
             client.linkRichMenuToUser(userId, 'richmenu-138eedbbf1e26aa4042c21f0c72d1bdf');
-            break;
+            return message;
         case 'cancel':
             message = {
                 'type': 'text',
                 'text': 'キャンセルしました'
             };
-            break;
+            return message;
         case '時間割共有':
             send_tt = ttdata.uuid;
-            message = [{
-                'type': 'text',
-                'text': send_tt
-            }, {
-                'type': 'text',
-                'text': '共有idを発行しました．これを友達に渡すと，その友達もあなたと同じ時間割を使うことが出来ます．\nちなみにこちらがこのbotの友達追加用URLですので，併せてご使用ください．'
-            }, {
-                'type': 'text',
-                'text': 'https://line.me/R/ti/p/%40ywg0561x'
-            }];
-            break;
+            message = require('./messages/時間割共有.json');
+            message[0].text = send_tt;
+            return message;
         case 'ユーザー情報削除':
-            message = {
-                'type': 'text',
-                'text': '時間割やプレミアム会員情報を含め、登録済みの全情報が削除されます。\n本当によろしいですか？',
-                'quickReply': {
-                    'items': [{
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': '削除する',
-                            'data': 'tt_delete'
-                        }
-                    }, {
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': 'キャンセル',
-                            'data': 'cancel'
-                        }
-                    }]
-                }
-            };
-            break;
-        case '全曜日':
-            message = {
-                'type': 'text',
-                'text': ttdata.mon + '\n\n' + ttdata.tue + '\n\n' + ttdata.wed + '\n\n' + ttdata.thu + '\n\n' + ttdata.fri + '\n\n' + ttdata.sat
-            };
-            break;
+            message = require('./messages/ユーザー情報削除.json');
+            return message;
         case 'その他':
             message = [{
                 'type': 'image',
-                'originalContentUrl': 'https://firebasestorage.googleapis.com/v0/b/picture-e5254.appspot.com/o/N29nS7jhGg.jpg?alt=media&token=ce04b2b2-551e-4cd6-a3a4-cc7f976a1a7d',
-                'previewImageUrl': 'https://firebasestorage.googleapis.com/v0/b/picture-e5254.appspot.com/o/N29nS7jhGg.jpg?alt=media&token=ce04b2b2-551e-4cd6-a3a4-cc7f976a1a7d'
+                'originalContentUrl': process.env.qrUri,
+                'previewImageUrl': process.env.qrUri
             }, {
                 'type': 'text',
                 'text': 'https://line.me/R/ti/p/%40ywg0561x'
             }];
-            break;
+            return message;
         case 'jikanwariNotifyTime':
             const time = Number((e.postback.params.time).split(':')[0]);
             console.log(time);
@@ -244,21 +205,21 @@ exports.postback = async (e) => {
             } else if (e.source.type == 'group') {
                 id = e.source.groupId;
             }
-            param = {
+            const updateParam = {
                 TableName: tableName,
-                Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
+                Key: {
                     ID: id
                 },
                 ExpressionAttributeNames: {
                     '#f': 'flag'
                 },
                 ExpressionAttributeValues: {
-                    ':flag': time.toString(), //name属性を更新する
+                    ':flag': time.toString(),
                 },
                 UpdateExpression: 'SET #f = :flag'
             };
             await new Promise((resolve, reject) => {
-                dynamoDocument.update(param, (err, data) => {
+                dynamoDocument.update(updateParam, (err, data) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -266,136 +227,12 @@ exports.postback = async (e) => {
                     }
                 });
             });
-            message = {
-                'type': 'flex',
-                'altText': 'ボタンを押して下さい',
-                'contents': {
-                    'type': 'bubble',
-                    'body': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'contents': [{
-                            'type': 'text',
-                            'text': `配信時間（${time}時）の登録が完了しました。`,
-                            'weight': 'bold',
-                            'wrap': true,
-                            'size': 'md'
-                        }, {
-                            'type': 'text',
-                            'text': '続いて以下のボタンを押して配信登録をして下さい。',
-                            'weight': 'bold',
-                            'wrap': true,
-                            'size': 'md'
-                        }, {
-                            'type': 'text',
-                            'text': '※これをしないと時間割が送られてきません。',
-                            'size': 'sm',
-                            'wrap': true
-                        }]
-                    },
-                    'footer': {
-                        'type': 'box',
-                        'layout': 'vertical',
-                        'spacing': 'sm',
-                        'contents': [{
-                            'type': 'button',
-                            'style': 'primary',
-                            'height': 'md',
-                            'action': {
-                                'type': 'uri',
-                                'label': 'ボタンを押して下さい',
-                                'uri': `https://37fa6eoyyc.execute-api.ap-northeast-1.amazonaws.com/prod/authorize?userId=${userId}`,
-                            }
-                        }],
-                        'flex': 0
-                    }
-                }
-            };
-            break;
+            message = require('./messages/jikanwariNotifyTime.json');
+            message.contents.body.contents[0].text = `配信時間（${time}時）の登録が完了しました。`;
+            message.contents.footer.contents[0].action.uri = `${process.env.notifyUri}?userId=${userId}`;
+            return message;
         default:
-            /*if (ttdata.premium) {
-                message = await premium(e, ttdata);
-            }*/
             break;
     }
     return message;
 };
-
-/*const premium = async(e, ttdata) => {
-    const userId = e.source.userId;
-    const data = e.postback.data;
-    let message;
-
-    switch (data) {
-
-        case 'jikanwariNotifyTime':
-            const time = Number((e.postback.params.time).split(':')[0]);
-            console.log(time);
-            let id;
-            if (e.source.type == 'user') {
-                id = userId;
-            }
-            else if (e.source.type == 'group') {
-                id = e.source.groupId;
-            }
-            param = {
-                TableName: tableName,
-                Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-                    ID: id
-                },
-                ExpressionAttributeNames: {
-                    '#f': 'flag'
-                },
-                ExpressionAttributeValues: {
-                    ':flag': time.toString(), //name属性を更新する
-                },
-                UpdateExpression: 'SET #f = :flag'
-            };
-            await new Promise((resolve, reject) => {
-                dynamoDocument.update(param, (err, data) => {
-                    if (err) {
-                        reject(err);
-                    }
-                    else {
-                        resolve(data);
-                    }
-                });
-            });
-            message = [{
-                "type": "text",
-                "text": "配信時間の登録が完了しました。続いて以下のボタンを押して配信登録をして下さい。\n※これをしないと時間割が送られてきません。"
-            }, {
-                "type": "flex",
-                "altText": '選択してください',
-                "contents": {
-                    "type": "bubble",
-                    "body": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [{
-                            "type": "text",
-                            "text": "選択してください",
-                            "weight": "bold",
-                            "size": "md"
-                        }]
-                    },
-                    "footer": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "spacing": "sm",
-                        "contents": [{
-                            "type": "button",
-                            "style": "primary",
-                            "height": "md",
-                            "action": {
-                                "type": "uri",
-                                "uri": `https://37fa6eoyyc.execute-api.ap-northeast-1.amazonaws.com/prod/autorize?userId=${userId}`,
-                            }
-                        }],
-                        "flex": 0
-                    }
-                }
-            }];
-            return message;
-    }
-};*/

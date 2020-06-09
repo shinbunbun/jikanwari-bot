@@ -6,7 +6,6 @@ const client = new line.Client({
 const othersFunc = require('./others');
 const dynamoDocument = new AWS.DynamoDB.DocumentClient();
 const tableName = 'TimeTable';
-let param;
 
 exports.message = async (e) => {
     let message;
@@ -202,7 +201,7 @@ const sendToGroup = async (e) => {
         }
     });
 
-    param = {
+    const queryParam = {
         TableName: tableName,
         KeyConditionExpression: '#k = :val',
         ExpressionAttributeValues: {
@@ -212,8 +211,8 @@ const sendToGroup = async (e) => {
             '#k': 'ID'
         }
     };
-    let promise = await new Promise((resolve, reject) => {
-        dynamoDocument.query(param, (err, data) => {
+    const promise = await new Promise((resolve, reject) => {
+        dynamoDocument.query(queryParam, (err, data) => {
             if (err) {
                 reject('$sendToGroup query err : {err}');
             } else {
@@ -222,12 +221,6 @@ const sendToGroup = async (e) => {
         });
     });
     const ttdata = promise.Items[0];
-    let isPremium;
-    if (ttdata) {
-        isPremium = ttdata.premium;
-    }
-    let send_tt;
-    let postalCode;
     switch (userMessage) {
         case '/groupid':
             message = {
@@ -243,14 +236,14 @@ const sendToGroup = async (e) => {
                 };
                 return message;
             }
-            param = {
+            const deleteParam = {
                 TableName: tableName,
                 Key: { //削除したい項目をプライマリキー(及びソートキー)によって１つ指定
                     ID: groupId
                 }
             };
             await new Promise((resolve, reject) => {
-                dynamoDocument.delete(param, (err, data) => {
+                dynamoDocument.delete(deleteParam, (err, data) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -492,7 +485,7 @@ const common = async (e, ttdata) => {
         default:
             if (userMessage.match(/hftd52/)) {
                 let ttdata;
-                param = {
+                const queryParam = {
                     TableName: tableName,
                     IndexName: 'uuid-index',
                     KeyConditionExpression: '#k = :val',
@@ -504,7 +497,7 @@ const common = async (e, ttdata) => {
                     }
                 };
                 let promise = await new Promise((resolve, reject) => {
-                    dynamoDocument.query(param, (err, data) => {
+                    dynamoDocument.query(queryParam, (err, data) => {
                         if (err) {
                             reject(err);
                         } else {
@@ -529,8 +522,9 @@ const common = async (e, ttdata) => {
                     fri = ttdata.fri,
                     sat = ttdata.sat,
                     property = ttdata.property;
+                let updateParam;
                 if (property) {
-                    param = {
+                    updateParam = {
                         TableName: 'TimeTable',
                         Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
                             ID: id
@@ -561,7 +555,7 @@ const common = async (e, ttdata) => {
                         UpdateExpression: 'SET #mon = :mon, #tue = :tue, #wed = :wed, #thu = :thu, #fri = :fri, #sat = :sat, #uuid = :uuid, #date = :date, #property = :property'
                     };
                 } else {
-                    param = {
+                    updateParam = {
                         TableName: 'TimeTable',
                         Key: { //更新したい項目をプライマリキー(及びソートキー)によって１つ指定
                             ID: id
@@ -591,7 +585,7 @@ const common = async (e, ttdata) => {
                     };
                 }
                 await new Promise((resolve, reject) => {
-                    dynamoDocument.update(param, (err, data) => {
+                    dynamoDocument.update(updateParam, (err, data) => {
                         if (err) {
                             console.log(err);
                             throw new Error(err);

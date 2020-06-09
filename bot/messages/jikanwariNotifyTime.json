@@ -1,0 +1,48 @@
+{
+  "type": "flex",
+  "altText": "ボタンを押して下さい",
+  "contents": {
+    "type": "bubble",
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [{
+          "type": "text",
+          "text": "配信時間（${time}時）の登録が完了しました。",
+          "weight": "bold",
+          "wrap": true,
+          "size": "md"
+        },
+        {
+          "type": "text",
+          "text": "続いて以下のボタンを押して配信登録をして下さい。",
+          "weight": "bold",
+          "wrap": true,
+          "size": "md"
+        },
+        {
+          "type": "text",
+          "text": "※これをしないと時間割が送られてきません。",
+          "size": "sm",
+          "wrap": true
+        }
+      ]
+    },
+    "footer": {
+      "type": "box",
+      "layout": "vertical",
+      "spacing": "sm",
+      "contents": [{
+        "type": "button",
+        "style": "primary",
+        "height": "md",
+        "action": {
+          "type": "uri",
+          "label": "ボタンを押して下さい",
+          "uri": "${process.env.notifyUri}?userId=${userId}"
+        }
+      }],
+      "flex": 0
+    }
+  }
+}
