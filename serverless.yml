@@ -42,6 +42,9 @@ custom:
     notify:
       dev: ${file(./notify/env/dev.yml)}
       prd: ${file(./notify/env/prd.yml)}
+    registerAPI:
+      dev: ${file(./registerAPI/env/dev.yml)}
+      prd: ${file(./registerAPI/env/prd.yml)}
 
 # you can overwrite defaults here
 #  stage: dev
@@ -82,6 +85,7 @@ functions:
     package:
       exclude:
         - notify/**
+        - registerAPI/**
     environment: ${self:custom.environment.bot.${self:provider.stage}}
     provisionedConcurrency: ${self:custom.environment.bot.${self:provider.stage}.provisionedConcurrency}
     layers:
@@ -98,6 +102,17 @@ functions:
     package:
       exclude:
         - bot/**
+        - registerAPI/**
+
+  registerAPI:
+    handler: registerAPI/handler.registerAPI
+    environment: ${self:custom.environment.registerAPI.${self:provider.stage}}
+    layers:
+      - ${self:custom.environment.registerAPI.${self:provider.stage}.lineBotSdk}
+    package:
+      exclude:
+        - bot/**
+        - notify/**
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
