@@ -35,30 +35,3 @@ jobs:
           NODEUUID: ${{ secrets.NODEUUID }}
           LINEBOTSDK: ${{ secrets.LINEBOTSDK }}
           ROLE: ${{ secrets.ROLE }}
-<<<<<<< HEAD
-          
-  deploy-notify:
-    name: deploy-notify
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-
-      - name: Install Dependencies
-        run: |
-          npm install serverless -g
-          npm install
-      - name: Deploy to Lambda
-        run: |
-          cd notify
-          sls deploy --stage prd
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          ROLE: ${{ secrets.ROLE }}
-=======
->>>>>>> d2fb433b6fee9a5c0fdae54d93c44adc9aad8cab
