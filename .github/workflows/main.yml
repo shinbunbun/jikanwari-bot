@@ -36,6 +36,7 @@ jobs:
           NODEUUID: ${{ secrets.NODEUUID }}
           LINEBOTSDK: ${{ secrets.LINEBOTSDK }}
           ROLE: ${{ secrets.ROLE }}
+          QRURI: ${{ secrets.QRURI }}
           
   deploy-notify:
     name: deploy-notify
