@@ -36,3 +36,4 @@ jobs:
           LINEBOTSDK: ${{ secrets.LINEBOTSDK }}
           ROLE: ${{ secrets.ROLE }}
           QS: ${{secrets.QS}}
+          NOTIFYURI: ${{secrets.NOTIFYURI}}
