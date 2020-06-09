@@ -35,3 +35,4 @@ jobs:
           NODEUUID: ${{ secrets.NODEUUID }}
           LINEBOTSDK: ${{ secrets.LINEBOTSDK }}
           ROLE: ${{ secrets.ROLE }}
+          QS: ${{secrets.QS}}
