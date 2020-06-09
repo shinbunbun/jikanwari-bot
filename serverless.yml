@@ -20,19 +20,28 @@ service: jikanwari-bot
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+package:
+  individually: true
+  exclude: 
+    - ./*
+
 provider:
   name: aws
   runtime: nodejs12.x
   memorySize: 128
   region: ap-northeast-1
   stage: ${opt:stage, self:custom.defaultStage}
-  role: ${self:custom.environment.${self:provider.stage}.role}
+  role: ${self:custom.environment.bot.${self:provider.stage}.role}
 
 custom:
   defaultStage: dev
   environment:
-    dev: ${file(./env/dev.yml)}
-    prd: ${file(./env/prd.yml)}
+    bot:
+      dev: ${file(./bot/env/dev.yml)}
+      prd: ${file(./bot/env/prd.yml)}
+    notify:
+      dev: ${file(./notify/env/dev.yml)}
+      prd: ${file(./notify/env/prd.yml)}
 
 # you can overwrite defaults here
 #  stage: dev
@@ -68,12 +77,28 @@ custom:
 #    - exclude-me-dir/**
 
 functions:
-  notify:
-    handler: handler.notify
-    environment: ${self:custom.environment.${self:provider.stage}}
+  bot:
+    handler: bot/handler.bot
+    package:
+      exclude:
+        - notify/**
+    environment: ${self:custom.environment.bot.${self:provider.stage}}
+    provisionedConcurrency: ${self:custom.environment.bot.${self:provider.stage}.provisionedConcurrency}
     layers:
-      - ${self:custom.environment.${self:provider.stage}.axios}
-      - ${self:custom.environment.${self:provider.stage}.qs}
+      - ${self:custom.environment.bot.${self:provider.stage}.axios}
+      - ${self:custom.environment.bot.${self:provider.stage}.nodeUuid}
+      - ${self:custom.environment.bot.${self:provider.stage}.lineBotSdk}
+
+  notify:
+    handler: notify/handler.notify
+    environment: ${self:custom.environment.notify.${self:provider.stage}}
+    layers:
+      - ${self:custom.environment.notify.${self:provider.stage}.axios}
+      - ${self:custom.environment.notify.${self:provider.stage}.qs}
+    package:
+      exclude:
+        - bot/**
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
