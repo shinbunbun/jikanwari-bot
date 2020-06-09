@@ -1,2 +1,4 @@
 TZ: Asia/Tokyo
 role: ${env:ROLE}
+axios: ${env:AXIOS}
+qs: ${env:QS}
