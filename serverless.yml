@@ -94,7 +94,7 @@ functions:
     environment: ${self:custom.environment.notify.${self:provider.stage}}
     layers:
       - ${self:custom.environment.notify.${self:provider.stage}.axios}
-      - ${self:custom.environment.notify.${self:provider.stage}.qs}
+     # - ${self:custom.environment.notify.${self:provider.stage}.qs}
     package:
       exclude:
         - bot/**
