@@ -166,7 +166,9 @@ const sendToUser = async (e) => {
         case '時間割お知らせ機能':
             message = require('./messages/時間割お知らせ機能.json');
             return message;
-
+        case '曜日指定':
+            message = require('./messages/曜日指定.json');
+            return message;
         default:
             message = undefined;
             message = await common(e, ttdata);

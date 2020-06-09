@@ -6,9 +6,9 @@ const client = new line.Client({
     channelAccessToken: process.env.ACCESSTOKEN
 });
 const tableName = 'TimeTable';
-let param;
 
 exports.postback = async (e) => {
+    let param;
     let message;
     othersFunc.outputUserProfile(e, e.source.type);
     const data = e.postback.data;
@@ -139,134 +139,20 @@ exports.postback = async (e) => {
     }
     switch (data) {
         case 'メニューに戻る':
-            //client.unlinkRichMenuFromUser(userId, 'richmenu-5f7be9b6a9d9731c93920b73fbc07094');
             client.linkRichMenuToUser(userId, process.env.richmenu1);
             return;
 
         case '元に戻す':
-            //client.unlinkRichMenuFromUser(userId, 'richmenu-56ef5fbf048920e0be09ba91888f8d3d');
             client.linkRichMenuToUser(userId, process.env.richmenu1);
             return;
 
         case '第二メニュー':
-            if (isPremium) {
-                client.linkRichMenuToUser(userId, 'richmenu-5f7be9b6a9d9731c93920b73fbc07094');
-            } else {
-                client.linkRichMenuToUser(userId, process.env.richmenu2);
-            }
+            client.linkRichMenuToUser(userId, process.env.richmenu2);
             return;
-
         case '時間割登録':
             message = {
                 'type': 'text',
                 'text': '共有IDを送信してください'
-            };
-            break;
-        case '今日の時間割':
-            switch (dayOfWeekStr) {
-                case '日':
-                    send_tt = 'ありません';
-                    break;
-                case '土':
-                    send_tt = ttdata.sat;
-                    break;
-                case '月':
-                    send_tt = ttdata.mon;
-                    break;
-                case '火':
-                    send_tt = ttdata.tue;
-                    break;
-                case '水':
-                    send_tt = ttdata.wed;
-                    break;
-                case '木':
-                    send_tt = ttdata.thu;
-                    break;
-                case '金':
-                    send_tt = ttdata.fri;
-                    break;
-            }
-            message = {
-                'type': 'text',
-                'text': send_tt
-            };
-            break;
-        case '明日の時間割':
-            switch (dayOfWeekStr) {
-                case '日':
-                case '土':
-                    send_tt = ttdata.mon;
-                    break;
-                case '月':
-                    send_tt = ttdata.tue;
-                    break;
-                case '火':
-                    send_tt = ttdata.wed;
-                    break;
-                case '水':
-                    send_tt = ttdata.thu;
-                    break;
-                case '木':
-                    send_tt = ttdata.fri;
-                    break;
-                case '金':
-                    send_tt = ttdata.sat;
-                    break;
-            }
-            message = {
-                'type': 'text',
-                'text': send_tt
-            };
-            break;
-        case '曜日指定':
-            message = {
-                'type': 'text',
-                'text': '曜日選択してください',
-                'quickReply': {
-                    'items': [{
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': '月曜日',
-                            'data': 'monday'
-                        }
-                    }, {
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': '火曜日',
-                            'data': 'tuesday'
-                        }
-                    }, {
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': '水曜日',
-                            'data': 'wednesday'
-                        }
-                    }, {
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': '木曜日',
-                            'data': 'thursday'
-                        }
-                    }, {
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': '金曜日',
-                            'data': 'friday'
-                        }
-                    }, {
-                        'type': 'action',
-                        'action': {
-                            'type': 'postback',
-                            'label': '土曜日',
-                            'data': 'saturday'
-                        }
-                    }]
-                }
             };
             break;
         case 'tt_delete':

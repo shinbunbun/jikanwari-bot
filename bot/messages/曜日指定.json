@@ -1,0 +1,55 @@
+{
+  "type": "text",
+  "text": "曜日選択してください",
+  "quickReply": {
+    "items": [{
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "月曜日",
+          "data": "monday"
+        }
+      },
+      {
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "火曜日",
+          "data": "tuesday"
+        }
+      },
+      {
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "水曜日",
+          "data": "wednesday"
+        }
+      },
+      {
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "木曜日",
+          "data": "thursday"
+        }
+      },
+      {
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "金曜日",
+          "data": "friday"
+        }
+      },
+      {
+        "type": "action",
+        "action": {
+          "type": "postback",
+          "label": "土曜日",
+          "data": "saturday"
+        }
+      }
+    ]
+  }
+}

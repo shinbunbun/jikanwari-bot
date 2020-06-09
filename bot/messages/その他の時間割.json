@@ -22,9 +22,9 @@
           "style": "primary",
           "height": "md",
           "action": {
-            "type": "postback",
+            "type": "message",
             "label": "曜日指定",
-            "data": "曜日指定"
+            "text": "曜日指定"
           }
         },
         {
