@@ -1,5 +1,7 @@
 const AWS = require('aws-sdk');
 const line = require('@line/bot-sdk');
+const axios = require('axios');
+const qs = require('qs');
 const client = new line.Client({
   channelAccessToken: process.env.ACCESSTOKEN
 });
@@ -8,7 +10,19 @@ const dynamoDocument = new AWS.DynamoDB.DocumentClient();
 module.exports.registerAPI = async (event, context, callback) => {
   const data = JSON.parse(event.body).data;
   console.log(data);
-  const userId = data.userId;
+
+  const res = await axios.post('https://api.line.me/oauth2/v2.1/verify', qs.stringify({
+      'id_token': data.idToken,
+      'client_id': process.env.CHANNELID
+    }))
+    .catch((err) => {
+      console.log(`Error: ${JSON.stringify(err.response.data)}`);
+      return 'err';
+    });
+
+  console.log(res);
+
+
   const monday = data.monday,
     tuesday = data.tuesday,
     wednesday = data.wednesday,

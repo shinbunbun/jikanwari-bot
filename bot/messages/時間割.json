@@ -22,9 +22,9 @@
           "style": "primary",
           "height": "md",
           "action": {
-            "type": "postback",
+            "type": "message",
             "label": "今日の時間割",
-            "data": "今日の時間割"
+            "text": "今日の時間割"
           }
         },
         {
@@ -32,9 +32,9 @@
           "style": "primary",
           "height": "md",
           "action": {
-            "type": "postback",
+            "type": "message",
             "label": "明日の時間割",
-            "data": "明日の時間割"
+            "text": "明日の時間割"
           }
         },
         {
@@ -42,9 +42,9 @@
           "style": "primary",
           "height": "md",
           "action": {
-            "type": "postback",
+            "type": "message",
             "label": "曜日指定",
-            "data": "曜日指定"
+            "text": "曜日指定"
           }
         },
         {
@@ -52,9 +52,9 @@
           "style": "primary",
           "height": "md",
           "action": {
-            "type": "postback",
+            "type": "message",
             "label": "全曜日",
-            "data": "全曜日"
+            "text": "全曜日"
           }
         },
         {
