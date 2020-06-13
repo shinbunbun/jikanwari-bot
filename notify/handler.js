@@ -10,6 +10,7 @@ module.exports.notify = async function (event, context) {
   const date = new Date(),
     dayOfWeek = date.getDay(),
     dayOfWeekStr = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeek];
+  console.log(dayOfWeekStr);
   const param = {
     TableName: 'TimeTable',
     IndexName: 'flag-index',
@@ -55,10 +56,11 @@ module.exports.notify = async function (event, context) {
 
         switch (dayOfWeekStr) {
           case '日':
-          case '土':
             send_tt = send_ttdata.mon;
             property = property[0];
             break;
+          case '土':
+            continue;
           case '月':
             send_tt = send_ttdata.tue;
             property = property[1];
@@ -89,9 +91,10 @@ module.exports.notify = async function (event, context) {
       } else {
         switch (dayOfWeekStr) {
           case '日':
-          case '土':
             send_tt = send_ttdata.mon;
             break;
+          case '土':
+            continue;
           case '月':
             send_tt = send_ttdata.tue;
             break;
@@ -116,9 +119,7 @@ module.exports.notify = async function (event, context) {
         property = property.split(',');
         switch (dayOfWeekStr) {
           case '日':
-            send_tt = '今日の時間割はありません';
-            property = undefined;
-            break;
+            continue;
           case '土':
             send_tt = send_ttdata.sat;
             property = property[5];
@@ -153,7 +154,7 @@ module.exports.notify = async function (event, context) {
       } else {
         switch (dayOfWeekStr) {
           case '日':
-            break;
+            continue;
           case '土':
             send_tt = send_ttdata.sat;
             break;
