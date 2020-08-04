@@ -37,3 +37,4 @@ jobs:
           ROLE: ${{ secrets.ROLE }}
           QS: ${{secrets.QS}}
           NOTIFYURI: ${{secrets.NOTIFYURI}}
+          QRURI: ${{secrets.QRURI}}
