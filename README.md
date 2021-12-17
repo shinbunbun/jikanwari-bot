@@ -1,6 +1,6 @@
 # jikanwari-bot
 
-時間割botのソースコードです
+[時間割bot](https://jikanwari-bot.shinbunbun.info/)のソースコードです
 
 ## 概要
 
