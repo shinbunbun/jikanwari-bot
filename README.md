@@ -1,6 +1,10 @@
 # jikanwari-bot
 
-[時間割bot](https://jikanwari-bot.shinbunbun.info/)のソースコードです
+友達追加数3425人（2022/01/14現在）の学生向け時間割管理サービス（LINEBot）、時間割botのリポジトリです。
+
+Webアプリケーション版のリポジトリ: https://github.com/shinbunbun/jikanwari-liff
+
+公式サイト: https://jikanwari-bot.shinbunbun.info/
 
 ## 概要
 
