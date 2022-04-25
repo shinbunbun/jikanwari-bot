@@ -87,7 +87,7 @@ functions:
         - notify/**
         - registerAPI/**
     environment: ${self:custom.environment.bot.${self:provider.stage}}
-    provisionedConcurrency: ${self:custom.environment.bot.${self:provider.stage}.provisionedConcurrency}
+    # provisionedConcurrency: ${self:custom.environment.bot.${self:provider.stage}.provisionedConcurrency}
     layers:
       - ${self:custom.environment.bot.${self:provider.stage}.axios}
       - ${self:custom.environment.bot.${self:provider.stage}.nodeUuid}
