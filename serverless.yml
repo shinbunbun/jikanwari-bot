@@ -37,10 +37,10 @@ custom:
   defaultStage: dev
   environment:
     bot:
-      dev: ${file(./bot/env/dev.yml)}
+      # dev: ${file(./bot/env/dev.yml)}
       prd: ${file(./bot/env/prd.yml)}
     notify:
-      dev: ${file(./notify/env/dev.yml)}
+      # dev: ${file(./notify/env/dev.yml)}
       prd: ${file(./notify/env/prd.yml)}
     #registerAPI:
     #  dev: ${file(./registerAPI/env/dev.yml)}
